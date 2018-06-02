@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -30,6 +31,9 @@ public class Controller {
 
     @FXML
     private Slider brightnessSlider;
+
+    @FXML
+    private Label pointerName;
 
     private boolean isRunning = false;
     private boolean arePointersVisible = false;
@@ -75,8 +79,9 @@ public class Controller {
         if (arePointersVisible) {
             for (Pointer pointer : pointers) {
                 pointer.getSprite().setOnMouseClicked(event -> {
-                    brightnessSlider.setValue(pointer.getBrightnessSensitivity());
                     sliderListener.setActivePointer(pointer);
+                    brightnessSlider.setValue(pointer.getBrightnessSensitivity());
+                    pointerName.setText("Pointer " + pointer.getId());
                 });
             }
             picturePane.getChildren().addAll(sprities);

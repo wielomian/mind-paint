@@ -9,6 +9,9 @@ import javafx.scene.shape.Circle;
  */
 public class Pointer {
 
+    private static int counter = 0;
+
+    private final int id;
     private boolean traceEnabled = true;
     private Color color = Color.hsb(180.0, 0.5, 0.5);
     private final Circle sprite;
@@ -18,6 +21,8 @@ public class Pointer {
     private double brightnessSensitivity = -0.5;
 
     public Pointer(double radius, double x, double y, double dx, double dy) {
+        id = counter;
+        counter++;
         velocity = new Vector2D(dx, dy);
         sprite = new Circle(x, y, radius);
     }
@@ -68,10 +73,15 @@ public class Pointer {
     }
 
     public void setBrightnessSensitivity(double brightnessSensitivity) {
+        System.out.println("SET BRIGHTNESS: " + brightnessSensitivity + " FOR POINTER " + id);
         this.brightnessSensitivity = brightnessSensitivity;
     }
 
     public Circle getSprite() {
         return sprite;
+    }
+
+    public int getId() {
+        return id;
     }
 }

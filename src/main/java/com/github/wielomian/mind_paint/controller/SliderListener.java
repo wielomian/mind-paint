@@ -8,7 +8,7 @@ import java.util.function.BiConsumer;
 /**
  * Created by Jan Tulowiecki on 2018-06-02.
  */
-public class SliderListener {
+class SliderListener {
 
     private Pointer activePointer;
 
@@ -20,7 +20,7 @@ public class SliderListener {
         };
     }
 
-    public void setActivePointer(Pointer activePointer) {
+    void setActivePointer(Pointer activePointer) {
         this.activePointer = activePointer;
     }
 }

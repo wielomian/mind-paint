@@ -79,7 +79,7 @@
                         <Slider GridPane.columnIndex="1" GridPane.rowIndex="2" />
                         <Slider GridPane.columnIndex="1" GridPane.rowIndex="3" />
                         <Label text="Pointer:" />
-                        <Label text="Label" GridPane.columnIndex="1" />
+                        <Label fx:id="pointerName" text="None" GridPane.columnIndex="1" />
                     </children>
                 </GridPane>
                 <Separator />
