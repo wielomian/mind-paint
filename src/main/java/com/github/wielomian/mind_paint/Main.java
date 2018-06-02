@@ -13,7 +13,6 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        //Parent root = FXMLLoader.load(getClass().getResource("../../../../picture_view.fxml"));
         URL pictureViewResourceURL = getClass().getClassLoader().getResource("picture_view.fxml");
         if (pictureViewResourceURL == null){
             throw new IOException("Couldn't find Picture View FXML file");

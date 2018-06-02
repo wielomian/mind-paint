@@ -2,24 +2,24 @@ package com.github.wielomian.mind_paint.model;
 
 
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 
 /**
  * Created by Jan Tulowiecki on 2018-04-27.
  */
 public class Pointer {
 
-    private double radius;
-    private double x;
-    private double y;
     private boolean traceEnabled = true;
-    private Color color = Color.rgb(127, 0, 95);
+    private Color color = Color.hsb(180.0, 0.5, 0.5);
+    private final Circle sprite;
     private final Vector2D velocity;
 
-    public Pointer(double radius, int x, int y, int dx, int dy) {
-        this.radius = radius;
-        this.x = x;
-        this.y = y;
+    // double from -1 to 0
+    private double brightnessSensitivity = -0.5;
+
+    public Pointer(double radius, double x, double y, double dx, double dy) {
         velocity = new Vector2D(dx, dy);
+        sprite = new Circle(x, y, radius);
     }
 
     public Vector2D getVelocity() {
@@ -27,24 +27,24 @@ public class Pointer {
     }
 
     public double getRadius() {
-        return radius;
+        return sprite.getRadius();
     }
 
     public void move() {
-        x += velocity.getX();
-        y += velocity.getY();
+        sprite.setCenterX(sprite.getCenterX() + velocity.getX());
+        sprite.setCenterY(sprite.getCenterY() + velocity.getY());
     }
 
     public void setRadius(double radius) {
-        this.radius = radius;
+        sprite.setRadius(radius);
     }
 
     public double getX() {
-        return x;
+        return sprite.getCenterX();
     }
 
     public double getY() {
-        return y;
+        return sprite.getCenterY();
     }
 
     public boolean isTraceEnabled() {
@@ -61,5 +61,17 @@ public class Pointer {
 
     public void setColor(Color color) {
         this.color = color;
+    }
+
+    public double getBrightnessSensitivity() {
+        return brightnessSensitivity;
+    }
+
+    public void setBrightnessSensitivity(double brightnessSensitivity) {
+        this.brightnessSensitivity = brightnessSensitivity;
+    }
+
+    public Circle getSprite() {
+        return sprite;
     }
 }
