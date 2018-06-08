@@ -2,6 +2,9 @@ package com.github.wielomian.mind_paint.model;
 
 import com.github.wielomian.mind_paint.connector.DataStream;
 import com.github.wielomian.mind_paint.connector.RandomDataStreamFactory;
+import com.github.wielomian.mind_paint.connector.ThinkGearSocket;
+
+import java.io.IOException;
 
 /**
  * Created by Jan Tulowiecki on 2018-04-27.
@@ -25,6 +28,15 @@ public class DataAccessObject {
         pictureSetup.getPointers().add(two);
         pictureSetup.getPointers().add(three);
         pictureSetup.getPointers().add(four);
+        try {
+            ThinkGearSocket socket = new ThinkGearSocket("localhost", 1234);
+            for (int i = 0; i < 10; ++i){
+                Thread.sleep(1000);
+                System.out.println("IMP: " + socket.getMeasurement().isPresent());
+            }
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+        }
         dataStream = new RandomDataStreamFactory().createDataStream();
     }
 

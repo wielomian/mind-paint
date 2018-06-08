@@ -35,8 +35,8 @@ public class ThinkGearSocket {
             if (!reader.ready()){
                 return Optional.empty();
             }
-            reader.readLine();
-
+            System.out.println(reader.readLine());
+            return Optional.of(new Measurement(Math.random(), Math.random(), Math.random()));
         } catch (IOException e) {
             e.printStackTrace();
             return Optional.empty();
