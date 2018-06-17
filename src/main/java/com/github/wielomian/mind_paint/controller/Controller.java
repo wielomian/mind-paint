@@ -14,6 +14,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
 import java.util.List;
+import java.util.function.BiConsumer;
 import java.util.stream.Collectors;
 
 public class Controller {
@@ -31,6 +32,12 @@ public class Controller {
 
     @FXML
     private Slider brightnessSlider;
+
+    @FXML
+    private Slider hueSlider;
+
+    @FXML
+    private Slider saturationSlider;
 
     @FXML
     private Label pointerName;
@@ -81,6 +88,8 @@ public class Controller {
                 pointer.getSprite().setOnMouseClicked(event -> {
                     sliderListener.setActivePointer(pointer);
                     brightnessSlider.setValue(pointer.getBrightnessSensitivity());
+                    hueSlider.setValue(pointer.getHueSensitivity());
+                    saturationSlider.setValue(pointer.getSaturationSensitivity());
                     pointerName.setText("Pointer " + pointer.getId());
                 });
             }
@@ -93,9 +102,15 @@ public class Controller {
     }
 
     public void initialize() {
-        brightnessSlider.setMin(-1.0);
-        brightnessSlider.setMax(0.0);
-        brightnessSlider.setValue(-0.5);
-        brightnessSlider.valueProperty().addListener(sliderListener.createChangeListener((p, d) -> p.setBrightnessSensitivity(d.doubleValue())));
+        setSlider(brightnessSlider, (p, d) -> p.setBrightnessSensitivity(d.doubleValue()));
+        setSlider(hueSlider, (p, d) -> p.setHueSensitivity(d.doubleValue()));
+        setSlider(saturationSlider, (p, d) -> p.setSaturationSensitivity(d.doubleValue()));
+    }
+
+    private void setSlider(Slider slider, BiConsumer<Pointer, Number> changeListener){
+        slider.setMin(-1.0);
+        slider.setMax(0.0);
+        slider.setValue(-0.5);
+        slider.valueProperty().addListener(sliderListener.createChangeListener(changeListener));
     }
 }

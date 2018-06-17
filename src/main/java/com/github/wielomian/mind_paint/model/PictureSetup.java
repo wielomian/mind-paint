@@ -1,5 +1,6 @@
 package com.github.wielomian.mind_paint.model;
 
+import com.github.wielomian.mind_paint.configuration.Configuration;
 import com.github.wielomian.mind_paint.engine.PositionUpdatingStrategyImpl;
 import com.github.wielomian.mind_paint.engine.PositionUpdatingStrategy;
 
@@ -14,12 +15,14 @@ public class PictureSetup {
     private final int width;
     private final int height;
     private final PositionUpdatingStrategy positionUpdatingStrategy;
+    private final Configuration configuration;
 
     public PictureSetup(int width, int height) {
         this.width = width;
         this.height = height;
         this.pointers = new ArrayList<>();
         positionUpdatingStrategy = new PositionUpdatingStrategyImpl(width, height);
+        configuration = new Configuration();
     }
 
     public List<Pointer> getPointers() {
@@ -36,5 +39,9 @@ public class PictureSetup {
 
     public PositionUpdatingStrategy getPositionUpdatingStrategy() {
         return positionUpdatingStrategy;
+    }
+
+    public Configuration getConfiguration() {
+        return configuration;
     }
 }

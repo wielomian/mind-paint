@@ -73,11 +73,11 @@
                     </rowConstraints>
                     <children>
                         <Label text="Brightness:" GridPane.rowIndex="1" />
-                        <Label text="Label" GridPane.rowIndex="2" />
-                        <Label text="Label" GridPane.rowIndex="3" />
+                        <Label text="Hue" GridPane.rowIndex="2" />
+                        <Label text="Saturation" GridPane.rowIndex="3" />
                         <Slider fx:id="brightnessSlider" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <Slider GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <Slider GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <Slider fx:id="hueSlider" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <Slider fx:id="saturationSlider" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                         <Label text="Pointer:" />
                         <Label fx:id="pointerName" text="None" GridPane.columnIndex="1" />
                     </children>

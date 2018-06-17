@@ -1,5 +1,7 @@
 package com.github.wielomian.mind_paint.connector;
 
+import com.github.wielomian.mind_paint.configuration.MeasurementType;
+
 /**
  * Created by Jan Tulowiecki on 2018-05-31.
  */
@@ -14,15 +16,16 @@ public class Measurement {
         this.theta = theta;
     }
 
-    public double getAlpha() {
-        return alpha;
-    }
-
-    public double getBeta() {
-        return beta;
-    }
-
-    public double getTheta() {
-        return theta;
+    public double getForType(MeasurementType measurementType) {
+        switch (measurementType) {
+            case ALPHA:
+                return alpha;
+            case BETA:
+                return beta;
+            case THETA:
+                return theta;
+            default:
+                throw new RuntimeException("Unrecognized Measurement Type");
+        }
     }
 }

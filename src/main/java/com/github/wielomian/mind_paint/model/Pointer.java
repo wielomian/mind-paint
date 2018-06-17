@@ -19,6 +19,8 @@ public class Pointer {
 
     // double from -1 to 0
     private double brightnessSensitivity = -0.5;
+    private double hueSensitivity = -0.5;
+    private double saturationSensitivity = -0.5;
 
     public Pointer(double radius, double x, double y, double dx, double dy) {
         id = counter;
@@ -73,8 +75,23 @@ public class Pointer {
     }
 
     public void setBrightnessSensitivity(double brightnessSensitivity) {
-        System.out.println("SET BRIGHTNESS: " + brightnessSensitivity + " FOR POINTER " + id);
         this.brightnessSensitivity = brightnessSensitivity;
+    }
+
+    public double getHueSensitivity() {
+        return hueSensitivity;
+    }
+
+    public void setHueSensitivity(double hueSensitivity) {
+        this.hueSensitivity = hueSensitivity;
+    }
+
+    public double getSaturationSensitivity() {
+        return saturationSensitivity;
+    }
+
+    public void setSaturationSensitivity(double saturationSensitivity) {
+        this.saturationSensitivity = saturationSensitivity;
     }
 
     public Circle getSprite() {

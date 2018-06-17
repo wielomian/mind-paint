@@ -9,7 +9,7 @@ import java.util.Random;
 public class RandomDataStreamFactory implements DataStreamFactory {
 
     @Override
-    public DataStream createDataStream() {
+    public RandomDataStream createDataStream() {
         return new RandomDataStream();
     }
 
