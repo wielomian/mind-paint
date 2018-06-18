@@ -1,5 +1,6 @@
 package com.github.wielomian.mind_paint;
 
+import com.github.wielomian.mind_paint.model.DataAccessObject;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -13,13 +14,14 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        URL pictureViewResourceURL = getClass().getClassLoader().getResource("picture_view.fxml");
-        if (pictureViewResourceURL == null){
-            throw new IOException("Couldn't find Picture View FXML file");
+        DataAccessObject.getInstance().setWindow(primaryStage);
+        URL menuViewResourceURL = getClass().getClassLoader().getResource("main_menu.fxml");
+        if (menuViewResourceURL == null){
+            throw new IOException("Couldn't find Main Menu View FXML file");
         }
-        Parent root = FXMLLoader.load(pictureViewResourceURL);
+        Parent root = FXMLLoader.load(menuViewResourceURL);
         primaryStage.setTitle("MindPint");
-        primaryStage.setScene(new Scene(root, 960, 550));
+        primaryStage.setScene(new Scene(root, 317, 476));
         primaryStage.show();
     }
 

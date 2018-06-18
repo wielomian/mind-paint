@@ -2,6 +2,7 @@ package com.github.wielomian.mind_paint.engine;
 
 import com.github.wielomian.mind_paint.configuration.Configuration;
 import com.github.wielomian.mind_paint.connector.Measurement;
+import com.github.wielomian.mind_paint.model.DataAccessObject;
 import com.github.wielomian.mind_paint.model.PictureSetup;
 import com.github.wielomian.mind_paint.model.Pointer;
 import javafx.scene.paint.Color;
@@ -17,7 +18,7 @@ public class PictureSetupUpdaterImpl implements PictureSetupUpdater {
     public void update(PictureSetup pictureSetup, Measurement measurement) {
         steps++;
         PositionUpdatingStrategy positionUpdatingStrategy = pictureSetup.getPositionUpdatingStrategy();
-        Configuration configuration = pictureSetup.getConfiguration();
+        Configuration configuration = DataAccessObject.getInstance().getConfiguration();
         for (Pointer pointer : pictureSetup.getPointers()) {
             if (steps % 5 == 0) {
 

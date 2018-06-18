@@ -5,6 +5,7 @@ import com.github.wielomian.mind_paint.connector.DataStream;
 import com.github.wielomian.mind_paint.connector.RandomDataStreamFactory;
 import com.github.wielomian.mind_paint.connector.ThinkGearDataStreamFactory;
 import com.github.wielomian.mind_paint.connector.ThinkGearSocket;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 
@@ -16,6 +17,7 @@ public class DataAccessObject {
     private final PictureSetup pictureSetup;
     private final DataStream dataStream;
     private final Configuration configuration;
+    private Stage window;
 
     private DataAccessObject() {
         pictureSetup = new PictureSetup(600, 376);
@@ -34,7 +36,7 @@ public class DataAccessObject {
         configuration = new Configuration();
         try {
             ThinkGearSocket socket = new ThinkGearSocket("localhost", 13854);
-            for (int i = 0; i < 10; ++i){
+            for (int i = 0; i < 10; ++i) {
                 Thread.sleep(1000);
                 System.out.println("IMP: " + socket.getMeasurement().isPresent());
             }
@@ -44,7 +46,7 @@ public class DataAccessObject {
         DataStream localDataStream;
         try {
             localDataStream = new ThinkGearDataStreamFactory().createDataStream();
-        } catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
             localDataStream = new RandomDataStreamFactory().createDataStream();
         }
@@ -63,5 +65,17 @@ public class DataAccessObject {
 
     public DataStream getDataStream() {
         return dataStream;
+    }
+
+    public Configuration getConfiguration() {
+        return configuration;
+    }
+
+    public Stage getWindow() {
+        return window;
+    }
+
+    public void setWindow(Stage window) {
+        this.window = window;
     }
 }
