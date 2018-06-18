@@ -34,15 +34,6 @@ public class DataAccessObject {
         pictureSetup.getPointers().add(three);
         pictureSetup.getPointers().add(four);
         configuration = new Configuration();
-        try {
-            ThinkGearSocket socket = new ThinkGearSocket("localhost", 13854);
-            for (int i = 0; i < 10; ++i) {
-                Thread.sleep(1000);
-                System.out.println("IMP: " + socket.getMeasurement().isPresent());
-            }
-        } catch (IOException | InterruptedException e) {
-            e.printStackTrace();
-        }
         DataStream localDataStream;
         try {
             localDataStream = new ThinkGearDataStreamFactory().createDataStream();
