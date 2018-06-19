@@ -18,7 +18,13 @@ public class RandomDataStreamFactory implements DataStreamFactory {
 
         @Override
         public Optional<Measurement> getMeasurement() {
-            return Optional.of(new Measurement(random.nextDouble(), random.nextDouble(), random.nextDouble()));
+            return Optional.of(new Measurement(random.nextDouble(),
+                    random.nextDouble(),
+                    random.nextDouble(),
+                    random.nextDouble(),
+                    random.nextDouble(),
+                    random.nextDouble()
+            ));
         }
     }
 }

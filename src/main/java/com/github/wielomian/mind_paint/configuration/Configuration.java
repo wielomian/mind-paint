@@ -5,10 +5,10 @@ package com.github.wielomian.mind_paint.configuration;
  */
 public class Configuration {
 
-    private MeasurementType velocity = MeasurementType.BETA;
-    private MeasurementType hue = MeasurementType.ALPHA;
-    private MeasurementType saturation = MeasurementType.BETA;
-    private MeasurementType brightness = MeasurementType.THETA;
+    private MeasurementType velocity = MeasurementType.HIGH_ALPHA;
+    private MeasurementType hue = MeasurementType.LOW_ALPHA;
+    private MeasurementType saturation = MeasurementType.HIGH_ALPHA;
+    private MeasurementType brightness = MeasurementType.LOW_BETA;
 
     public MeasurementType getVelocity() {
         return velocity;

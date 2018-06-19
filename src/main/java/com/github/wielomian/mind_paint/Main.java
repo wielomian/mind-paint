@@ -1,6 +1,5 @@
 package com.github.wielomian.mind_paint;
 
-import com.github.wielomian.mind_paint.model.DataAccessObject;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
