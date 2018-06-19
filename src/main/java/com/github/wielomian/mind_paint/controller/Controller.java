@@ -4,7 +4,6 @@ import com.github.wielomian.mind_paint.engine.Timer;
 import com.github.wielomian.mind_paint.export.CanvasExporter;
 import com.github.wielomian.mind_paint.model.DataAccessObject;
 import com.github.wielomian.mind_paint.model.Pointer;
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
