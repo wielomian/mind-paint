@@ -4,6 +4,9 @@ import com.github.wielomian.mind_paint.engine.Timer;
 import com.github.wielomian.mind_paint.model.DataAccessObject;
 import com.github.wielomian.mind_paint.model.Pointer;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
@@ -12,7 +15,10 @@ import javafx.scene.control.Slider;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.stage.Stage;
 
+import java.io.IOException;
+import java.net.URL;
 import java.util.List;
 import java.util.function.BiConsumer;
 import java.util.stream.Collectors;
@@ -99,6 +105,17 @@ public class Controller {
             picturePane.getChildren().removeAll(sprities);
             pointersOnOff.setText("Show pointers");
         }
+    }
+
+    public void onSettingsMenuSelected() throws IOException {
+        URL settingsViewResourceURL = getClass().getClassLoader().getResource("config.fxml");
+        if (settingsViewResourceURL == null) {
+            throw new IOException("Couldn't find Settings FXML file");
+        }
+        Parent root = FXMLLoader.load(settingsViewResourceURL);
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root, 317, 476));
+        stage.show();
     }
 
     public void initialize() {

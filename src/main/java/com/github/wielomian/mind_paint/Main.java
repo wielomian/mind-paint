@@ -15,13 +15,13 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         DataAccessObject.getInstance().setWindow(primaryStage);
-        URL menuViewResourceURL = getClass().getClassLoader().getResource("main_menu.fxml");
-        if (menuViewResourceURL == null){
-            throw new IOException("Couldn't find Main Menu View FXML file");
+        URL pictureViewResourceURL = getClass().getClassLoader().getResource("picture_view.fxml");
+        if (pictureViewResourceURL == null) {
+            throw new IOException("Couldn't find Picture View FXML file");
         }
-        Parent root = FXMLLoader.load(menuViewResourceURL);
+        Parent root = FXMLLoader.load(pictureViewResourceURL);
         primaryStage.setTitle("MindPint");
-        primaryStage.setScene(new Scene(root, 317, 476));
+        primaryStage.setScene(new Scene(root, 960, 550));
         primaryStage.show();
     }
 

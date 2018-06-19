@@ -18,18 +18,14 @@ public class ThinkGearSocket {
     private final SocketChannel channel;
     private final Scanner scanner;
 
-    public ThinkGearSocket(String ip, int port) throws IOException {
+    public ThinkGearSocket() throws IOException {
         channel = SocketChannel.open(new InetSocketAddress("localhost", 13854));
 
         CharsetEncoder enc = Charset.forName("US-ASCII").newEncoder();
         scanner = new Scanner(channel);
         String jsonCommand = "{\"enableRawOutput\": false, \"format\": \"Json\"}\n";
         channel.write(enc.encode(CharBuffer.wrap(jsonCommand)));
-        /*while (true) {
-            if (scanner.hasNext()) {
-                System.out.println(scanner.next());
-            }
-        }*/
+
     }
 
     public Optional<Measurement> getMeasurement() {

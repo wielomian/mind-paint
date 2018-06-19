@@ -4,9 +4,7 @@ import com.github.wielomian.mind_paint.connector.DataStream;
 import com.github.wielomian.mind_paint.connector.Measurement;
 import com.github.wielomian.mind_paint.model.DataAccessObject;
 import com.github.wielomian.mind_paint.model.PictureSetup;
-import com.github.wielomian.mind_paint.model.Vector2D;
 import javafx.animation.AnimationTimer;
-import javafx.scene.paint.Color;
 
 import java.util.Optional;
 
@@ -18,7 +16,7 @@ public class Timer extends AnimationTimer {
     private final PictureSetup pictureSetup = DataAccessObject.getInstance().getPictureSetup();
     private final DataStream dataStream = DataAccessObject.getInstance().getDataStream();
     private long previousTimestamp = 0;
-    private final PictureSetupUpdater pictureSetupUpdater = new PictureSetupUpdaterImpl();
+    private final PictureSetupUpdater pictureSetupUpdater = new PictureSetupUpdater();
     private final Runnable refreshTask;
 
     public Timer(Runnable refreshTask) {

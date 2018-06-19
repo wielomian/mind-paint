@@ -19,9 +19,9 @@
                                 <MenuItem mnemonicParsing="false" text="Close" />
                             </items>
                         </Menu>
-                        <Menu mnemonicParsing="false" text="Edit">
+                        <Menu mnemonicParsing="false" text="Settings">
                             <items>
-                                <MenuItem mnemonicParsing="false" text="Delete" />
+                                <MenuItem mnemonicParsing="false" text="Global" onAction="#onSettingsMenuSelected"/>
                             </items>
                         </Menu>
                         <Menu mnemonicParsing="false" text="Help">

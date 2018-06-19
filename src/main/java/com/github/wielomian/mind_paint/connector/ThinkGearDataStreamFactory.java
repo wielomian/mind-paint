@@ -8,6 +8,8 @@ import java.util.Optional;
  */
 public class ThinkGearDataStreamFactory implements DataStreamFactory {
 
+    public static final int MAX_USAGES = 5;
+
     @Override
     public DataStream createDataStream() throws IOException {
         return new ThingGearDataStream();
@@ -16,14 +18,26 @@ public class ThinkGearDataStreamFactory implements DataStreamFactory {
     private static final class ThingGearDataStream implements DataStream {
 
         private final ThinkGearSocket thinkGearSocket;
+        private Measurement lastMeasurement;
+        private int lastMeasurementUsages;
 
         ThingGearDataStream() throws IOException {
-            thinkGearSocket = new ThinkGearSocket("localhost", 13854);
+            thinkGearSocket = new ThinkGearSocket();
         }
 
         @Override
         public Optional<Measurement> getMeasurement() {
-            return thinkGearSocket.getMeasurement();
+            Optional<Measurement> measurement = thinkGearSocket.getMeasurement();
+            if (measurement.isPresent()){
+                lastMeasurement = measurement.get();
+                lastMeasurementUsages = 0;
+            }
+            if (lastMeasurementUsages == MAX_USAGES){
+                return Optional.empty();
+            } else {
+                lastMeasurementUsages++;
+                return Optional.ofNullable(lastMeasurement);
+            }
         }
     }
 }
