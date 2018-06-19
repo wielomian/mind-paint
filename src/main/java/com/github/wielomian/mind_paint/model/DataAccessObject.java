@@ -18,6 +18,7 @@ public class DataAccessObject {
     private final DataStream dataStream;
     private final Configuration configuration;
     private Stage window;
+    private boolean connected = false;
 
     private DataAccessObject() {
         pictureSetup = new PictureSetup(600, 376);
@@ -68,5 +69,21 @@ public class DataAccessObject {
 
     public void setWindow(Stage window) {
         this.window = window;
+    }
+
+    public boolean isConnected() {
+        return connected;
+    }
+
+    int cd = 3;
+
+    public void reconnect (){
+        if (cd == 0) connected = true;
+        cd--;
+        //connected = !connected;
+    }
+
+    public void setConnected(boolean connected) {
+        this.connected = connected;
     }
 }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.shape.*?>
 <?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.canvas.*?>
@@ -21,7 +22,7 @@
                         </Menu>
                         <Menu mnemonicParsing="false" text="Settings">
                             <items>
-                                <MenuItem mnemonicParsing="false" text="Global" onAction="#onSettingsMenuSelected"/>
+                                <MenuItem mnemonicParsing="false" onAction="#onSettingsMenuSelected" text="Global" />
                             </items>
                         </Menu>
                         <Menu mnemonicParsing="false" text="Help">
@@ -49,11 +50,11 @@
         </VBox>
     </top>
     <center>
-        <Pane fx:id="picturePane" maxHeight="376.0" maxWidth="600.0" style="-fx-border-style: solid inside;" BorderPane.alignment="CENTER">
+        <AnchorPane fx:id="picturePane" maxHeight="378.0" maxWidth="602.0" style="-fx-border-style: solid inside;" BorderPane.alignment="CENTER">
             <children>
-                <Canvas fx:id="canvas" height="376.0" width="600.0" />
+                <Canvas fx:id="canvas" height="376.0" layoutX="1.0" layoutY="1.0" width="600.0" />
             </children>
-        </Pane>
+        </AnchorPane>
     </center>
     <left>
         <ToolBar orientation="VERTICAL" prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
@@ -83,6 +84,12 @@
                     </children>
                 </GridPane>
                 <Separator />
+            <Pane prefHeight="280.0" prefWidth="200.0" />
+            <Button fx:id="connectionStatus" mnemonicParsing="false" onAction="#onConnectionStatusButtonClicked" text="MindWave Connection">
+               <graphic>
+                  <Ellipse fx:id="connectionEllipse" fill="DODGERBLUE" radiusX="10.0" radiusY="10.0" strokeType="INSIDE" />
+               </graphic>
+            </Button>
             </items>
         </ToolBar>
     </left>

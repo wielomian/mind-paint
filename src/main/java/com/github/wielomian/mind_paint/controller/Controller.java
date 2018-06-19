@@ -15,6 +15,7 @@ import javafx.scene.control.Slider;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Ellipse;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -47,6 +48,12 @@ public class Controller {
 
     @FXML
     private Label pointerName;
+
+    @FXML
+    private Button connectionStatus;
+
+    @FXML
+    private Ellipse connectionEllipse;
 
     private boolean isRunning = false;
     private boolean arePointersVisible = false;
@@ -116,6 +123,18 @@ public class Controller {
         Stage stage = new Stage();
         stage.setScene(new Scene(root, 317, 476));
         stage.show();
+    }
+
+    public void onConnectionStatusButtonClicked() {
+        DataAccessObject dataAccessObject = DataAccessObject.getInstance();
+        if (!dataAccessObject.isConnected()){
+            dataAccessObject.reconnect();
+        }
+        if (dataAccessObject.isConnected()){
+            connectionEllipse.setFill(Color.FORESTGREEN);
+        } else {
+            connectionEllipse.setFill(Color.DARKRED);
+        }
     }
 
     public void initialize() {
