@@ -1,8 +1,10 @@
 package com.github.wielomian.mind_paint.controller;
 
 import com.github.wielomian.mind_paint.engine.Timer;
+import com.github.wielomian.mind_paint.export.CanvasExporter;
 import com.github.wielomian.mind_paint.model.DataAccessObject;
 import com.github.wielomian.mind_paint.model.Pointer;
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -16,8 +18,10 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Ellipse;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
@@ -56,6 +60,7 @@ public class Controller {
     private boolean arePointersVisible = false;
     private Timer paintTimer = new Timer(this::onRefresh);
     private SliderListener sliderListener = new SliderListener();
+    private final CanvasExporter canvasExporter = new CanvasExporter();
 
     public void onRefresh() {
         for (Pointer pointer : DataAccessObject.getInstance().getPictureSetup().getPointers()) {
@@ -109,6 +114,35 @@ public class Controller {
             picturePane.getChildren().removeAll(sprities);
             pointersOnOff.setText("Show pointers");
         }
+    }
+
+    public void onSaveMenuSelected() throws IOException {
+        FileChooser fileChooser = new FileChooser();
+        FileChooser.ExtensionFilter extFilter =
+                new FileChooser.ExtensionFilter("PNG Files (*.png)", "*.png");
+        fileChooser.getExtensionFilters().add(extFilter);
+        File selected = fileChooser.showSaveDialog(canvas.getScene().getWindow());
+        canvasExporter.exportCanvasToPngFile(canvas, selected);
+    }
+
+    public void onCloseMenuSelected() throws IOException {
+        canvas.getScene().getWindow().hide();
+    }
+
+    public void onAboutMenuSelected() throws IOException {
+
+        DataAccessObject instance = DataAccessObject.getInstance();
+        if (instance.getAboutWindow() == null) {
+            URL aboutView = getClass().getClassLoader().getResource("about.fxml");
+            if (aboutView == null) {
+                throw new IOException("Couldn't find About FXML file");
+            }
+            Parent root = FXMLLoader.load(aboutView);
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root, 366, 300));
+            instance.setAboutWindow(stage);
+        }
+        instance.getAboutWindow().show();
     }
 
     public void onSettingsMenuSelected() throws IOException {

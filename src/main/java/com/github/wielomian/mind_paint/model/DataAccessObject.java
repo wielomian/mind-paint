@@ -17,6 +17,7 @@ public class DataAccessObject {
     private DataStream dataStream;
     private final Configuration configuration;
     private Stage configurationWindow;
+    private Stage aboutWindow;
     private boolean connected = false;
     private final ThinkGearDataStreamFactory thinkGearDataStreamFactory;
     private final RandomDataStreamFactory randomDataStreamFactory;
@@ -65,6 +66,14 @@ public class DataAccessObject {
 
     public void setConfigurationWindow(Stage configurationWindow) {
         this.configurationWindow = configurationWindow;
+    }
+
+    public Stage getAboutWindow() {
+        return aboutWindow;
+    }
+
+    public void setAboutWindow(Stage aboutWindow) {
+        this.aboutWindow = aboutWindow;
     }
 
     public boolean isConnected() {

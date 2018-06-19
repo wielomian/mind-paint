@@ -17,7 +17,8 @@
                     <menus>
                         <Menu mnemonicParsing="false" text="File">
                             <items>
-                                <MenuItem mnemonicParsing="false" text="Close" />
+                                <MenuItem mnemonicParsing="false" text="Save" onAction="#onSaveMenuSelected"/>
+                        <MenuItem mnemonicParsing="false" text="Close" onAction="#onCloseMenuSelected"/>
                             </items>
                         </Menu>
                         <Menu mnemonicParsing="false" text="Settings">
@@ -27,7 +28,7 @@
                         </Menu>
                         <Menu mnemonicParsing="false" text="Help">
                             <items>
-                                <MenuItem mnemonicParsing="false" text="About" />
+                                <MenuItem mnemonicParsing="false" text="About" onAction="#onAboutMenuSelected"/>
                             </items>
                         </Menu>
                     </menus>
