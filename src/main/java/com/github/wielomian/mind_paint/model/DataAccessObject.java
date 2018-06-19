@@ -4,7 +4,6 @@ import com.github.wielomian.mind_paint.configuration.Configuration;
 import com.github.wielomian.mind_paint.connector.DataStream;
 import com.github.wielomian.mind_paint.connector.RandomDataStreamFactory;
 import com.github.wielomian.mind_paint.connector.ThinkGearDataStreamFactory;
-import com.github.wielomian.mind_paint.connector.ThinkGearSocket;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -26,10 +25,10 @@ public class DataAccessObject {
         Pointer two = new Pointer(5, 20, 350, 1, -1);
         Pointer three = new Pointer(5, 20, 350, 1.25, -1.25);
         Pointer four = new Pointer(5, 20, 350, 1.6, -1.6);
-        one.setBrightnessSensitivity(-0.6);
-        two.setBrightnessSensitivity(-0.5);
-        three.setBrightnessSensitivity(-0.4);
-        four.setBrightnessSensitivity(-0.3);
+        //one.setBrightnessSensitivity(-0.6);
+        //two.setBrightnessSensitivity(-0.5);
+        //three.setBrightnessSensitivity(-0.4);
+        //four.setBrightnessSensitivity(-0.3);
         pictureSetup.getPointers().add(one);
         pictureSetup.getPointers().add(two);
         pictureSetup.getPointers().add(three);
@@ -77,7 +76,7 @@ public class DataAccessObject {
 
     int cd = 3;
 
-    public void reconnect (){
+    public void reconnect() {
         if (cd == 0) connected = true;
         cd--;
         //connected = !connected;

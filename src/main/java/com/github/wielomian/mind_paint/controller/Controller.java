@@ -50,9 +50,6 @@ public class Controller {
     private Label pointerName;
 
     @FXML
-    private Button connectionStatus;
-
-    @FXML
     private Ellipse connectionEllipse;
 
     private boolean isRunning = false;
@@ -86,7 +83,7 @@ public class Controller {
     public void onClearButtonCLicked() {
         GraphicsContext graphicsContext2D = canvas.getGraphicsContext2D();
         graphicsContext2D.setFill(Color.WHITE);
-        graphicsContext2D.fillRect(1, 1, canvas.getWidth() - 2, canvas.getHeight() - 2);
+        graphicsContext2D.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
     }
 
     public void onShowHidePointersClicked() {

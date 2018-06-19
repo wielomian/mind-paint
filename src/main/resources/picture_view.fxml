@@ -85,7 +85,7 @@
                 </GridPane>
                 <Separator />
             <Pane prefHeight="280.0" prefWidth="200.0" />
-            <Button fx:id="connectionStatus" mnemonicParsing="false" onAction="#onConnectionStatusButtonClicked" text="MindWave Connection">
+            <Button mnemonicParsing="false" onAction="#onConnectionStatusButtonClicked" text="MindWave Connection">
                <graphic>
                   <Ellipse fx:id="connectionEllipse" fill="DODGERBLUE" radiusX="10.0" radiusY="10.0" strokeType="INSIDE" />
                </graphic>
