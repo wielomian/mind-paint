@@ -41,7 +41,7 @@ public class ConfigController {
         combo.getSelectionModel().select(getter.apply(configuration));
     }
 
-    public void onOkButtonClicked(){
+    public void onOkButtonClicked() {
         DataAccessObject.getInstance().getConfigurationWindow().hide();
     }
 }

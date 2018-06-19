@@ -128,10 +128,10 @@ public class Controller {
 
     public void onConnectionStatusButtonClicked() {
         DataAccessObject dataAccessObject = DataAccessObject.getInstance();
-        if (!dataAccessObject.isConnected()){
+        if (!dataAccessObject.isConnected()) {
             dataAccessObject.reconnect();
         }
-        if (dataAccessObject.isConnected()){
+        if (dataAccessObject.isConnected()) {
             connectionEllipse.setFill(Color.FORESTGREEN);
         } else {
             connectionEllipse.setFill(Color.DARKRED);
@@ -139,12 +139,18 @@ public class Controller {
     }
 
     public void initialize() {
+        DataAccessObject dataAccessObject = DataAccessObject.getInstance();
+        if (dataAccessObject.isConnected()) {
+            connectionEllipse.setFill(Color.FORESTGREEN);
+        } else {
+            connectionEllipse.setFill(Color.DARKRED);
+        }
         setSlider(brightnessSlider, (p, d) -> p.setBrightnessSensitivity(d.doubleValue()));
         setSlider(hueSlider, (p, d) -> p.setHueSensitivity(d.doubleValue()));
         setSlider(saturationSlider, (p, d) -> p.setSaturationSensitivity(d.doubleValue()));
     }
 
-    private void setSlider(Slider slider, BiConsumer<Pointer, Number> changeListener){
+    private void setSlider(Slider slider, BiConsumer<Pointer, Number> changeListener) {
         slider.setMin(-1.0);
         slider.setMax(0.0);
         slider.setValue(-0.5);

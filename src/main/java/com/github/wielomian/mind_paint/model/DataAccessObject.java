@@ -14,10 +14,12 @@ import java.io.IOException;
 public class DataAccessObject {
 
     private final PictureSetup pictureSetup;
-    private final DataStream dataStream;
+    private DataStream dataStream;
     private final Configuration configuration;
     private Stage configurationWindow;
     private boolean connected = false;
+    private final ThinkGearDataStreamFactory thinkGearDataStreamFactory;
+    private final RandomDataStreamFactory randomDataStreamFactory;
 
     private DataAccessObject() {
         pictureSetup = new PictureSetup(600, 376);
@@ -34,14 +36,9 @@ public class DataAccessObject {
         pictureSetup.getPointers().add(three);
         pictureSetup.getPointers().add(four);
         configuration = new Configuration();
-        DataStream localDataStream;
-        try {
-            localDataStream = new ThinkGearDataStreamFactory().createDataStream();
-        } catch (IOException e) {
-            e.printStackTrace();
-            localDataStream = new RandomDataStreamFactory().createDataStream();
-        }
-        dataStream = localDataStream;
+        randomDataStreamFactory = new RandomDataStreamFactory();
+        thinkGearDataStreamFactory = new ThinkGearDataStreamFactory();
+        reconnect();
     }
 
     private static DataAccessObject instance = new DataAccessObject();
@@ -74,12 +71,19 @@ public class DataAccessObject {
         return connected;
     }
 
-    int cd = 3;
-
     public void reconnect() {
-        if (cd == 0) connected = true;
-        cd--;
-        //connected = !connected;
+        DataStream localDataStream;
+        try {
+            localDataStream = thinkGearDataStreamFactory.createDataStream();
+            connected = true;
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+            localDataStream = randomDataStreamFactory.createDataStream();
+            connected = false;
+        }
+        if (localDataStream != null) {
+            dataStream = localDataStream;
+        }
     }
 
     public void setConnected(boolean connected) {

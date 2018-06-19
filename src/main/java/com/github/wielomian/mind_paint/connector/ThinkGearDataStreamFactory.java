@@ -28,11 +28,11 @@ public class ThinkGearDataStreamFactory implements DataStreamFactory {
         @Override
         public Optional<Measurement> getMeasurement() {
             Optional<Measurement> measurement = thinkGearSocket.getMeasurement();
-            if (measurement.isPresent()){
+            if (measurement.isPresent()) {
                 lastMeasurement = measurement.get();
                 lastMeasurementUsages = 0;
             }
-            if (lastMeasurementUsages == MAX_USAGES){
+            if (lastMeasurementUsages == MAX_USAGES) {
                 return Optional.empty();
             } else {
                 lastMeasurementUsages++;
