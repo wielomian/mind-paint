@@ -112,14 +112,18 @@ public class Controller {
     }
 
     public void onSettingsMenuSelected() throws IOException {
-        URL settingsViewResourceURL = getClass().getClassLoader().getResource("config.fxml");
-        if (settingsViewResourceURL == null) {
-            throw new IOException("Couldn't find Settings FXML file");
+        DataAccessObject instance = DataAccessObject.getInstance();
+        if (instance.getConfigurationWindow() == null) {
+            URL settingsViewResourceURL = getClass().getClassLoader().getResource("config.fxml");
+            if (settingsViewResourceURL == null) {
+                throw new IOException("Couldn't find Settings FXML file");
+            }
+            Parent root = FXMLLoader.load(settingsViewResourceURL);
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root, 317, 476));
+            instance.setConfigurationWindow(stage);
         }
-        Parent root = FXMLLoader.load(settingsViewResourceURL);
-        Stage stage = new Stage();
-        stage.setScene(new Scene(root, 317, 476));
-        stage.show();
+        instance.getConfigurationWindow().show();
     }
 
     public void onConnectionStatusButtonClicked() {

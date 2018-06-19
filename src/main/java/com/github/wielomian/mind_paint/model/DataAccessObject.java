@@ -16,7 +16,7 @@ public class DataAccessObject {
     private final PictureSetup pictureSetup;
     private final DataStream dataStream;
     private final Configuration configuration;
-    private Stage window;
+    private Stage configurationWindow;
     private boolean connected = false;
 
     private DataAccessObject() {
@@ -62,12 +62,12 @@ public class DataAccessObject {
         return configuration;
     }
 
-    public Stage getWindow() {
-        return window;
+    public Stage getConfigurationWindow() {
+        return configurationWindow;
     }
 
-    public void setWindow(Stage window) {
-        this.window = window;
+    public void setConfigurationWindow(Stage configurationWindow) {
+        this.configurationWindow = configurationWindow;
     }
 
     public boolean isConnected() {

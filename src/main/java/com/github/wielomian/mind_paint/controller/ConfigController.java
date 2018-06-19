@@ -40,4 +40,8 @@ public class ConfigController {
         combo.setOnAction(ignored -> setter.accept(configuration, combo.getValue()));
         combo.getSelectionModel().select(getter.apply(configuration));
     }
+
+    public void onOkButtonClicked(){
+        DataAccessObject.getInstance().getConfigurationWindow().hide();
+    }
 }
