@@ -18,7 +18,7 @@ public class Main extends Application {
             throw new IOException("Couldn't find Picture View FXML file");
         }
         Parent root = FXMLLoader.load(pictureViewResourceURL);
-        primaryStage.setTitle("MindPint");
+        primaryStage.setTitle("MindPaint");
         primaryStage.setScene(new Scene(root, 960, 550));
         primaryStage.show();
     }

@@ -20,7 +20,7 @@ public class ThinkGearSocket {
     private final SocketChannel channel;
     private final Scanner scanner;
     private final Gson gson;
-    private final Measurement measurement;
+    private Measurement measurement;
 
     public ThinkGearSocket() throws IOException {
         channel = SocketChannel.open(new InetSocketAddress("localhost", 13854));
@@ -30,7 +30,6 @@ public class ThinkGearSocket {
         String jsonCommand = "{\"enableRawOutput\": false, \"format\": \"Json\"}\n";
         channel.write(enc.encode(CharBuffer.wrap(jsonCommand)));
         gson = new Gson();
-        measurement = new Measurement();
     }
 
     public Optional<Measurement> getMeasurement() {
@@ -41,6 +40,9 @@ public class ThinkGearSocket {
         System.out.println(line);
         if (line.contains("eegPower")) {
             MeasurementJson measurementJson = gson.fromJson(line, MeasurementJson.class);
+            if (measurement == null){
+                measurement = new Measurement();
+            }
             measurementJson.fillMeasurement(measurement);
         }
         return Optional.ofNullable(measurement);
