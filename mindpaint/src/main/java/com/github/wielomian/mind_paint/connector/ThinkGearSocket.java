@@ -3,14 +3,8 @@ package com.github.wielomian.mind_paint.connector;
 import com.google.gson.Gson;
 
 import java.io.*;
-import java.net.InetSocketAddress;
 import java.net.Socket;
-import java.nio.CharBuffer;
-import java.nio.channels.SocketChannel;
-import java.nio.charset.Charset;
-import java.nio.charset.CharsetEncoder;
 import java.util.Optional;
-import java.util.Scanner;
 
 /**
  * Created by Jan Tulowiecki on 2018-06-08.
