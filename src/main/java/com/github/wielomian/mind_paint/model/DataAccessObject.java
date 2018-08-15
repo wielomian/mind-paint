@@ -1,9 +1,7 @@
 package com.github.wielomian.mind_paint.model;
 
 import com.github.wielomian.mind_paint.configuration.Configuration;
-import com.github.wielomian.mind_paint.connector.DataStream;
-import com.github.wielomian.mind_paint.connector.RandomDataStreamFactory;
-import com.github.wielomian.mind_paint.connector.ThinkGearDataStreamFactory;
+import com.github.wielomian.mind_paint.connector.ThingGearDataStream;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -14,13 +12,11 @@ import java.io.IOException;
 public class DataAccessObject {
 
     private final PictureSetup pictureSetup;
-    private DataStream dataStream;
+    private ThingGearDataStream dataStream;
     private final Configuration configuration;
     private Stage configurationWindow;
     private Stage aboutWindow;
     private boolean connected = false;
-    private final ThinkGearDataStreamFactory thinkGearDataStreamFactory;
-    private final RandomDataStreamFactory randomDataStreamFactory;
 
     private DataAccessObject() {
         pictureSetup = new PictureSetup(600, 376);
@@ -37,8 +33,6 @@ public class DataAccessObject {
         pictureSetup.getPointers().add(three);
         pictureSetup.getPointers().add(four);
         configuration = new Configuration();
-        randomDataStreamFactory = new RandomDataStreamFactory();
-        thinkGearDataStreamFactory = new ThinkGearDataStreamFactory();
         reconnect();
     }
 
@@ -52,7 +46,7 @@ public class DataAccessObject {
         return pictureSetup;
     }
 
-    public DataStream getDataStream() {
+    public ThingGearDataStream getDataStream() {
         return dataStream;
     }
 
@@ -81,21 +75,11 @@ public class DataAccessObject {
     }
 
     public void reconnect() {
-        DataStream localDataStream;
         try {
-            localDataStream = thinkGearDataStreamFactory.createDataStream();
+            dataStream = new ThingGearDataStream();
             connected = true;
         } catch (IOException e) {
-            System.out.println(e.getMessage());
-            localDataStream = randomDataStreamFactory.createDataStream();
-            connected = false;
+            e.printStackTrace();
         }
-        if (localDataStream != null) {
-            dataStream = localDataStream;
-        }
-    }
-
-    public void setConnected(boolean connected) {
-        this.connected = connected;
     }
 }

@@ -7,7 +7,10 @@
     <groupId>com.github.wielomian</groupId>
     <artifactId>mind_paint</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <packaging>jar</packaging>
+    <modules>
+        <module>tgcmock</module>
+    </modules>
+    <packaging>pom</packaging>
 
     <dependencies>
         <dependency>

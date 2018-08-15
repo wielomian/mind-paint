@@ -44,4 +44,16 @@ public class Measurement {
                 throw new RuntimeException("Unrecognized Measurement Type");
         }
     }
+
+    @Override
+    public String toString() {
+        return "Measurement{" +
+                "lowAlpha=" + lowAlpha +
+                ", highAlpha=" + highAlpha +
+                ", lowBeta=" + lowBeta +
+                ", highBeta=" + highBeta +
+                ", meditation=" + meditation +
+                ", attention=" + attention +
+                '}';
+    }
 }

@@ -1,7 +1,7 @@
 package com.github.wielomian.mind_paint.engine;
 
-import com.github.wielomian.mind_paint.connector.DataStream;
 import com.github.wielomian.mind_paint.connector.Measurement;
+import com.github.wielomian.mind_paint.connector.ThingGearDataStream;
 import com.github.wielomian.mind_paint.model.DataAccessObject;
 import com.github.wielomian.mind_paint.model.PictureSetup;
 import javafx.animation.AnimationTimer;
@@ -14,7 +14,7 @@ import java.util.Optional;
 public class Timer extends AnimationTimer {
 
     private final PictureSetup pictureSetup = DataAccessObject.getInstance().getPictureSetup();
-    private final DataStream dataStream = DataAccessObject.getInstance().getDataStream();
+    private final ThingGearDataStream dataStream = DataAccessObject.getInstance().getDataStream();
     private long previousTimestamp = 0;
     private final PictureSetupUpdater pictureSetupUpdater = new PictureSetupUpdater();
     private final Runnable refreshTask;
@@ -25,7 +25,8 @@ public class Timer extends AnimationTimer {
 
     @Override
     public void handle(long now) {
-        if (previousTimestamp + 40_000_000L < now) {
+        //TODO: move to properties
+        if (previousTimestamp + 42_000_000L < now) {
             Optional<Measurement> measurement = dataStream.getMeasurement();
             if (measurement.isPresent()) {
                 previousTimestamp = now;

@@ -2,8 +2,9 @@ package com.github.wielomian.mind_paint.connector;
 
 import com.google.gson.Gson;
 
-import java.io.IOException;
+import java.io.*;
 import java.net.InetSocketAddress;
+import java.net.Socket;
 import java.nio.CharBuffer;
 import java.nio.channels.SocketChannel;
 import java.nio.charset.Charset;
@@ -15,38 +16,75 @@ import java.util.Scanner;
  * Created by Jan Tulowiecki on 2018-06-08.
  * Based on http://developer.neurosky.com/docs/lib/exe/fetch.php?media=app_notes:thinkgear_socket_protocol.pdf
  */
-public class ThinkGearSocket {
+public class ThinkGearSocket implements Closeable {
 
-    private final SocketChannel channel;
-    private final Scanner scanner;
+    private final Socket socket;
+    private final PrintWriter socketWriter;
+    private final BufferedReader socketReader;
     private final Gson gson;
-    private Measurement measurement;
 
-    public ThinkGearSocket() throws IOException {
-        channel = SocketChannel.open(new InetSocketAddress("localhost", 13854));
-
-        CharsetEncoder enc = Charset.forName("US-ASCII").newEncoder();
-        scanner = new Scanner(channel);
-        String jsonCommand = "{\"enableRawOutput\": false, \"format\": \"Json\"}\n";
-        channel.write(enc.encode(CharBuffer.wrap(jsonCommand)));
+    public ThinkGearSocket(boolean requireJsonMessage) throws IOException{
+        socket = new Socket("localhost", 13854);
+        socketWriter = new PrintWriter(socket.getOutputStream(), true);
+        socketReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+        if (requireJsonMessage) {
+            String jsonCommand = "{\"enableRawOutput\": false, \"format\": \"Json\"}\n";
+            socketWriter.println(jsonCommand);
+        }
         gson = new Gson();
     }
 
+    public ThinkGearSocket() throws IOException {
+        this(false);
+    }
+
     public Optional<Measurement> getMeasurement() {
-        if (!scanner.hasNext()) {
+        try {
+            if (!socketReader.ready()) {
+                return Optional.empty();
+            }
+            String line = socketReader.readLine();
+            //TODO: remove this println
+            System.out.println(line);
+            Measurement measurement = null;
+            if (line.contains("eegPower")) {
+                MeasurementJson measurementJson = gson.fromJson(line, MeasurementJson.class);
+                measurement = new Measurement();
+                measurementJson.fillMeasurement(measurement);
+            }
+            return Optional.ofNullable(measurement);
+        } catch (IOException e){
+            //TODO: remove all the printStackTrace, use logger
+            e.printStackTrace();
             return Optional.empty();
         }
-        String line = scanner.nextLine();
-        System.out.println(line);
-        if (line.contains("eegPower")) {
-            MeasurementJson measurementJson = gson.fromJson(line, MeasurementJson.class);
-            if (measurement == null){
-                measurement = new Measurement();
-            }
-            measurementJson.fillMeasurement(measurement);
-        }
-        return Optional.ofNullable(measurement);
     }
+
+    @Override
+    public void close() throws IOException {
+        try {
+            if (socket != null) {
+                socket.close();
+            }
+        } finally {
+            try {
+                if (socketWriter != null){
+                    socketWriter.close();
+                }
+            } finally {
+                if (socketReader != null){
+                    socketReader.close();
+                }
+            }
+        }
+    }
+
+    private static final Average ATTENTION_AVERAGE = new Average();
+    private static final Average MEDITATION_AVERAGE = new Average();
+    private static final Average LOW_ALPHA_AVERAGE = new Average();
+    private static final Average HIGH_ALPHA_AVERAGE = new Average();
+    private static final Average LOW_BETA_AVERAGE = new Average();
+    private static final Average HIGH_BETA_AVERAGE = new Average();
 
     private static final class MeasurementJson {
         private int poorSignalLevel;
@@ -65,26 +103,36 @@ public class ThinkGearSocket {
         public void fillMeasurement(Measurement measurement) {
             if (eSense != null) {
                 if (eSense.attention != 0) {
-                    measurement.attention = Math.min(eSense.attention / 1000000.0, 1.0);
+                    ATTENTION_AVERAGE.add(eSense.attention);
+                    measurement.attention = normalize(eSense.attention, ATTENTION_AVERAGE);
                 }
                 if (eSense.meditation != 0) {
-                    measurement.meditation = Math.min(eSense.meditation / 1000000.0, 1.0);
+                    MEDITATION_AVERAGE.add(eSense.meditation);
+                    measurement.meditation = normalize(eSense.meditation, MEDITATION_AVERAGE);
                 }
             }
             if (eegPower != null) {
                 if (eegPower.lowAlpha != 0) {
-                    measurement.lowAlpha = Math.min(eegPower.lowAlpha / 1000000.0, 1.0);
+                    LOW_ALPHA_AVERAGE.add(eegPower.lowAlpha);
+                    measurement.lowAlpha = normalize(eegPower.lowAlpha, LOW_ALPHA_AVERAGE);
                 }
                 if (eegPower.highAlpha != 0) {
-                    measurement.highAlpha = Math.min(eegPower.highAlpha / 1000000.0, 1.0);
+                    HIGH_ALPHA_AVERAGE.add(eegPower.highAlpha);
+                    measurement.highAlpha = normalize(eegPower.highAlpha, HIGH_ALPHA_AVERAGE);
                 }
                 if (eegPower.lowBeta != 0) {
-                    measurement.lowBeta = Math.min(eegPower.lowBeta / 1000000.0, 1.0);
+                    LOW_BETA_AVERAGE.add(eegPower.lowBeta);
+                    measurement.lowBeta = normalize(eegPower.lowBeta, LOW_BETA_AVERAGE);
                 }
                 if (eegPower.highBeta != 0) {
-                    measurement.highBeta = Math.min(eegPower.highBeta / 1000000.0, 1.0);
+                    HIGH_BETA_AVERAGE.add(eegPower.highBeta);
+                    measurement.highBeta = normalize(eegPower.highBeta, HIGH_BETA_AVERAGE);
                 }
             }
+        }
+
+        private static double normalize(double value, Average average){
+            return Math.min(value / (2 * average.get()), 1.0);
         }
     }
 

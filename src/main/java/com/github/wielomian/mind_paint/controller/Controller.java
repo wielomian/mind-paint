@@ -75,12 +75,12 @@ public class Controller {
     public void onPaintOnOffClicked() {
         if (isRunning) {
             isRunning = false;
-            paintTimer.stop();
             paintOnOff.setText("Start");
+            paintTimer.stop();
         } else {
             isRunning = true;
-            paintTimer.start();
             paintOnOff.setText("Stop");
+            paintTimer.start();
         }
     }
 
