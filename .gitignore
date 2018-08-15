@@ -4,4 +4,4 @@
 
 #Build files
 out/*
-target/*
+**/target/*
